@@ -1,0 +1,65 @@
+INFO:scrapy.utils.log:Scrapy 1.2.1 started (bot: PicScrapy)
+INFO:scrapy.utils.log:Overridden settings: {'NEWSPIDER_MODULE': 'PicScrapy.spiders', 'SPIDER_MODULES': ['PicScrapy.spiders'], 'ROBOTSTXT_OBEY': True, 'BOT_NAME': 'PicScrapy'}
+INFO:scrapy.middleware:Enabled extensions:
+['scrapy.extensions.logstats.LogStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.corestats.CoreStats']
+INFO:scrapy.middleware:Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.chunked.ChunkedTransferMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+INFO:scrapy.middleware:Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+INFO:scrapy.middleware:Enabled item pipelines:
+['PicScrapy.pipelines.PostDbPipeline']
+INFO:scrapy.core.engine:Spider opened
+INFO:scrapy.extensions.logstats:Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+DEBUG:scrapy.extensions.telnet:Telnet console listening on 127.0.0.1:6023
+DEBUG:peewee:('SELECT "t1"."id", "t1"."start_url", "t1"."name", "t1"."create_time", "t1"."update_time" FROM "topic" AS t1 WHERE ("t1"."name" = ?) LIMIT 1 OFFSET 0', [u'\u8857\u62cd\u7b2c\u4e00\u7ad9 \xbb \u8857\u62cd\u4e1d\u8db3\u7f8e\u8db3'])
+ERROR:scrapy.core.engine:Error while obtaining start requests
+Traceback (most recent call last):
+  File "C:\Users\Ken\AppData\Roaming\Python\Python27\site-packages\scrapy\core\engine.py", line 126, in _next_request
+    request = next(slot.start_requests)
+  File "C:\Users\Ken\PycharmProjects\PicScrapy\PicScrapy\spiders\Jpcn1Spider.py", line 32, in start_requests
+    topic, max_pages = self.init_topic()
+  File "C:\Users\Ken\PycharmProjects\PicScrapy\PicScrapy\spiders\Jpcn1Spider.py", line 22, in init_topic
+    topic = repository.get_topic_by_name(topic_name)
+  File "C:\Users\Ken\PycharmProjects\PicScrapy\PicScrapy\repository\repository.py", line 22, in get_topic_by_name
+    return Topic.get(Topic.name == name)
+  File "C:\Users\Ken\AppData\Roaming\Python\Python27\site-packages\peewee.py", line 4795, in get
+    return sq.get()
+  File "C:\Users\Ken\AppData\Roaming\Python\Python27\site-packages\peewee.py", line 3097, in get
+    return next(clone.execute())
+  File "C:\Users\Ken\AppData\Roaming\Python\Python27\site-packages\peewee.py", line 3149, in execute
+    self._qr = ResultWrapper(model_class, self._execute(), query_meta)
+  File "C:\Users\Ken\AppData\Roaming\Python\Python27\site-packages\peewee.py", line 2833, in _execute
+    return self.database.execute_sql(sql, params, self.require_commit)
+  File "C:\Users\Ken\AppData\Roaming\Python\Python27\site-packages\peewee.py", line 3690, in execute_sql
+    self.commit()
+  File "C:\Users\Ken\AppData\Roaming\Python\Python27\site-packages\peewee.py", line 3514, in __exit__
+    reraise(new_type, new_type(*exc_args), traceback)
+  File "C:\Users\Ken\AppData\Roaming\Python\Python27\site-packages\peewee.py", line 3683, in execute_sql
+    cursor.execute(sql, params or ())
+OperationalError: no such table: topic
+INFO:scrapy.core.engine:Closing spider (finished)
+INFO:scrapy.statscollectors:Dumping Scrapy stats:
+{'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2016, 11, 19, 15, 42, 40, 909000),
+ 'log_count/DEBUG': 2,
+ 'log_count/ERROR': 1,
+ 'log_count/INFO': 7,
+ 'start_time': datetime.datetime(2016, 11, 19, 15, 42, 40, 898000)}
+INFO:scrapy.core.engine:Spider closed (finished)
