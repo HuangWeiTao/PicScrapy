@@ -2,6 +2,7 @@ from peewee import fn
 from PicScrapy.model.model import *
 from PicScrapy.model import  downloadstatus
 
+
 class PicRepository:
     def save_pic(self, pic):
         pic.save()
@@ -45,6 +46,8 @@ class PicRepository:
     def get_topic_list(self, page, size):
         return Topic.select().order_by(Topic.create_time).paginate(page, size)
 
+
+
     def get_post_count_by_topic(self,topic_id):
         return Post.select().where(Post.topic_id == topic_id).count()
 
@@ -58,9 +61,12 @@ class PicRepository:
         return Pic.select().where(Pic.post_id == post_id)
 
 if __name__ == "__main__":
-    query = (Post.select().join(Pic,join_type=JOIN_INNER).switch(Post).annotate(Pic))
-    for row in query:
-        print ('id:{} name:{} post count:{}'.format(row[0],row[1],row[-1]))
+    query = (Post.select(Post,fn.Count(Pic.id).alias('pic_count')).join(Pic,join_type=JOIN_INNER,on=(Post.id==Pic.post_id)).group_by(Post.id))
+    print(str(query))
+    for post in query:
+        print (u'post name: {}, pic count:{}.'.format( post.name,post.pic_count))
+
+
 
 
 
